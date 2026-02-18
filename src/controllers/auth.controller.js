@@ -1,6 +1,7 @@
 import userModel from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
+import { sendRegistrationEmail } from "../services/email.service.js";
 
 /**
  * ========================================================================
@@ -113,11 +114,6 @@ async function userRegisterController(req, res) {
     name,
   });
 
-  // TODO: Send welcome/verification email to user using Gmail API
-  // Email can be sent here after user is successfully created
-  // Follow the setup instructions at the top of this file
-  // Example: await sendWelcomeEmail(user.email, user.name);
-
   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
     expiresIn: "3d",
   });
@@ -131,6 +127,10 @@ async function userRegisterController(req, res) {
       name: user.name,
     },
     token,
+  });
+
+  await sendRegistrationEmail(user.email, user.name).catch((error) => {
+    console.error("Error sending registration email:", error);
   });
 }
 

@@ -27,7 +27,7 @@ transporter.verify((error, success) => {
 const sendEmail = async (to, subject, text, html) => {
   try {
     const info = await transporter.sendMail({
-      from: `"Backend Ledger" <${process.env.EMAIL_USER}>`, // sender address
+      from: `"BANK TRANSACTION PROJECT" <${process.env.EMAIL_USER}>`, // sender address
       to, // list of receivers
       subject, // Subject line
       text, // plain text body
@@ -65,7 +65,7 @@ async function sendTransactionFailureEmail(userEmail, name, amount, toAccount) {
   await sendEmail(userEmail, subject, text, html);
 }
 
-module.exports = {
+export {
   sendRegistrationEmail,
   sendTransactionEmail,
   sendTransactionFailureEmail,
