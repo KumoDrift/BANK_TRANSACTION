@@ -27,6 +27,8 @@ const accountSchema = new mongoose.Schema(
   },
 );
 
+accountSchema.index({ user: 1, status: 1 }); // Indexing the user field for faster lookups
+
 const accountModel = mongoose.model("account", accountSchema);
 
 export default accountModel;
