@@ -32,7 +32,7 @@ accountSchema.index({ user: 1, status: 1 }); // Indexing the user field for fast
 
 accountSchema.methods.getBalance = async function () {
   //this aggregation pipeline calculates the balance for the account by summing up all the CREDIT entries and subtracting all the DEBIT entries from the ledger collection. The result is returned as the balance for the account.and this is a special feature of mongoose which allows us to define custom methods on our schema which can be called on the instances of the model. In this case, we are defining a method called getBalance which can be called on any account instance to get the current balance of that account.
-  const balanceData = await ledgerModel.aggregate([
+  const balanceData = await LedgerModel.aggregate([
     { $match: { account: this._id } },
     {
       $group: {
